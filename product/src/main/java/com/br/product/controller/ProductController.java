@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @RestController
-@RequestMapping("/product/api/v1")
+@RequestMapping("/product/v1")
 public class ProductController {
 
     @RequestMapping(method=RequestMethod.GET)
