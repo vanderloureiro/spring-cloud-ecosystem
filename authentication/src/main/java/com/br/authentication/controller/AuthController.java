@@ -1,8 +1,11 @@
 package com.br.authentication.controller;
 
+import com.br.authentication.service.TokenService;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,15 +13,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthController {
 
-    @PostMapping
-    public ResponseEntity<String> login(String username) {
-        
-        return null;
+    private TokenService tokenService;
+
+    public AuthController(TokenService tokenService) {
+        this.tokenService = tokenService;
     }
 
-    @GetMapping
-    public ResponseEntity<String> getUser() {
+    @GetMapping("/token/{username}")
+    public ResponseEntity<String> login(@PathVariable String username) {
+        
+        return ResponseEntity.ok().body(this.tokenService.generateToken(username));
+    }
 
-        return null;
+    @GetMapping("/username")
+    public ResponseEntity<String> getUsername(@RequestHeader(value = "Authorization") String token) {
+
+        return ResponseEntity.ok().body(this.tokenService.getUsername(token));
     }
 }
