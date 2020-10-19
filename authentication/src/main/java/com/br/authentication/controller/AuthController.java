@@ -30,4 +30,10 @@ public class AuthController {
 
         return ResponseEntity.ok().body(this.tokenService.getUsername(token));
     }
+
+    @GetMapping("/is-authenticaed")
+    public ResponseEntity<Boolean> isAuthenticated(@RequestHeader(value = "Authorization") String token) {
+
+        return ResponseEntity.ok().body(this.tokenService.isValid(token));
+    }
 }
